@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Basic Bootstrap Template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body style="margin-top:30px;">
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : 'your-app-id',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v3.2'
+    });
+  };
+  </script>
+  <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <div style="color:white; text-align:center;" class="container info-form" *ngIf="!detailActive">
+
+    <div class="row" style="display:inline-block; width:100%;" >
+      <button (click)="enable_details()" align=right style="float:right; margin:0px;" class="btn   navbar-btn align-content-between" [disabled]="detailFlag ? false : true">Details ></button>
+    </div>
+
+    <div class="row" [@flyInOut]>
+      <table class="table table-dark table-striped table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Shipping</th>
+            <th scope="col">Zip</th>
+            <th scope="col">Seller</th>
+            <th scope="col">Wish List</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let rowdata of resultTable | paginate: {id : 'my-pagination', itemsPerPage:10, currentPage:p};  let i = index" >
+
+            <th [class.Custombackground]="(rowdata.itemId[0] == currentId)" scope="row">{{(i+10*(p-1))+1}}</th>
+
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" (click)="openPhoto(rowdata.galleryURL)"><img src="{{rowdata.galleryURL}}" style="height:100px; width:80px;" /></td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" *ngIf="rowdata.title[0].length <= 35" matTooltip={{rowdata.title[0]}} style="text-align:left;"><a (click)="showDetail(rowdata.itemId[0],rowdata.title[0], rowdata)" href="#">{{rowdata.title[0]}}</a></td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" *ngIf="rowdata.title[0].length >= 35  && rowdata.title[0].charAt(36) == ' ' " matTooltip={{rowdata.title[0]}} style="text-align:left;"><a (click)="showDetail(rowdata.itemId[0],rowdata.title[0], rowdata)" href="#">{{rowdata.title[0].substr(0,36)}}...</a></td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)"  *ngIf="rowdata.title[0].length >= 35  && rowdata.title[0].charAt(36) != ' ' " matTooltip={{rowdata.title[0]}} style="text-align:left;"><a (click)="showDetail(rowdata.itemId[0],rowdata.title[0], rowdata)" href="#">{{rowdata.title[0].substr(0,rowdata.title[0].substr(0,36).lastIndexOf(' '))}}...</a></td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" >${{rowdata.sellingStatus[0].currentPrice[0].__value__}}</td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" >{{rowdata.shippingInfo[0].shippingType[0]}}</td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)">{{ rowdata.postalCode[0]}}</td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" >{{rowdata.sellerInfo[0].sellerUserName[0]}}</td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)"  *ngIf="isAbsent(rowdata.itemId[0])"><button (click)="addTowish(rowdata)"><i class="material-icons" style="color:black; vertical-align: middle; padding-left:0px;">add_shopping_cart</i></button></td>
+            <td [class.Custombackground]="(rowdata.itemId[0] == currentId)" *ngIf="isPresent(rowdata.itemId[0])"><button (click)="removeFromWish(rowdata)"><i class="material-icons" style="vertical-align: middle; padding-left:0px; color:goldenrod;">remove_shopping_cart</i></button></td>
+          </tr>
+        </tbody>
+
+      </table>
+      <div style="align-content:center; text-align:center; width:100%">
+        <pagination-controls styyle="align:center; margin:auto" id="my-pagination" (pageChange)="p = $event"></pagination-controls>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!--<app-product-detail *ngIf="product.productDetail"></app-product-detail>-->
+  <div *ngIf="detailActive" [@flyInOut]>
+    <div *ngIf="productDetail" class="container info-form">
+      <div class="row" style="display: flex; justify-content: center; align-items: center;">
+       <b> {{productTitle}} </b>
+      </div>
+      <div>
+        <div style="width:50%; display:inline-block; margin:auto;" align="left">
+          <button style="height:40px;" (click)="enable_list()"> < List</button>
+        </div>
+        <div style="width:50%; display:inline-block;" align="right">
+          <script>
+window.fbAsyncInit = function() {
+          FB.init({
+            appId: '368802450377566',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v3.2'
+          });
+        };</script>
+          <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+          <a target="_blank" href="http://www.facebook.com/sharer.php?u= {{currentPhoto}}&quote=Buy {{productTitle}} + at + ${{currentPrice}} + from link below"><button class="btn btn-primary  navbar-btn align-content-between" name="addtolist" style="height:40px; width:40px; color:black; background-image:url('http://csci571.com/hw/hw8/Images/facebook.png'); background-size: cover; display: inline-block; margin-right: 30px;"></button> </a>
+          <button *ngIf="!isInList(currentId)" (click)="addTowish(currentData)" class="btn btn-primary  navbar-btn align-content-between" name="addtolist" style="color:black; height:40px; width:40px; background-color:white; font-size: 20px; display: inline-block; margin-right: 30px; align-content:center; padding:0px;"> <i class="material-icons" style="font-size:30px;color:black; vertical-align: middle; padding-left:0px;">add_shopping_cart</i> </button>
+          <button *ngIf="isInList(currentId)" (click)="removeFromWish(currentData)" class="btn btn-primary  navbar-btn align-content-between" name="addtolist" style="color:goldenrod; height:40px; width:40px; background-color:white; font-size: 20px; display: inline-block; margin-right: 30px; align-content:center; padding:0px;"> <i class="material-icons" style="font-size:30px;color:goldenrod; vertical-align: middle; padding-left:0px;">remove_shopping_cart</i> </button>
+
+        </div>
+
+        <div style="margin-top:5px; color:black">
+          <ul class="nav justify-content-end">
+            <li class="nav-item" (click)="activate(1)" [style.background]="productActive ? 'black': 'white'" [style.color]="productActive ? 'white': 'black'">
+              <span style="background-color:black; color:white;"><a class="nav-link active" href="#">Product</a></span>
+            </li>
+            <li class="nav-item" (click)="activate(2)" [style.background]="photosActive ? 'black': 'white'" [style.color]="photosActive ? 'white': 'black'">
+              <span> <a class="nav-link" href="#">Photos</a></span>
+            </li>
+            <li class="nav-item" (click)="activate(3)" [style.background]="shippingActive ? 'black': 'white'" [style.color]="shippingActive ? 'white': 'black'">
+              <span> <a class="nav-link" href="#">Shipping</a></span>
+            </li>
+            <li class="nav-item" (click)="activate(4)" [style.background]="sellerActive ? 'black': 'white'" [style.color]="sellerActive ? 'white': 'black'">
+              <span><a class="nav-link" href="#">Seller</a></span>
+            </li>
+            <li class="nav-item" (click)="activate(5)" [style.background]="similarActive ? 'black': 'white'" [style.color]="similarActive ? 'white': 'black'">
+              <span> <a class="nav-link" href="#">Similar Products</a></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="notFound || notFoundShip || notFoundSeller " style="background-color:lightyellow; color:orange; border-color:orange; border:1px;" class="container info-form">
+      <p>No Records</p>
+    </div>
+    <div *ngIf="productDetail && productActive && !notFound">
+      <app-product-detail [productDetail]="productDetail"></app-product-detail>
+    </div>
+    <div *ngIf="productPhotos && photosActive && !notFound">
+      <app-photos [productPhotos]="productPhotos"></app-photos>
+    </div>
+
+    <div *ngIf="similarItem && similarActive && !notFound">
+      <app-similar [similarItem]="similarItem"></app-similar>
+    </div>
+
+    <div *ngIf="ship && shippingActive && !notFound && !notFoundShip">
+      <app-shipping [ship]="ship" [canReturn]="canReturn"></app-shipping>
+
+    </div>
+
+    <div *ngIf="seller && sellerActive && !notFound && !notFoundSeller">
+      <app-seller [seller]="seller" [store]="store"></app-seller>
+    </div>
+  </div>
+
+  <!--<app-wish-list></app-wish-list>-->
+
+</body>
+</html>

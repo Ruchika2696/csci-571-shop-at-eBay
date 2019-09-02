@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Make the image fully responsive */
+    .carousel-inner img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body style="margin-top:30px;" >
+
+  <ng-template #content let-modal>
+    <div class="modal-header" style="display:block;">
+      <div class="modal-header">
+        <div><b> Product Images</b></div>
+        <div><button class="close" type="button" (click)="modal.close('Save click')" style="border: none;"><p style="color:black;">x</p></button></div>
+     </div>
+      <div style="display:block; border-color:black; border-width:10px; border-style:solid; width:450px; height:450px;" align="center">
+        <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let url of images">
+          <a href="url" target="_blank"><img [src]="url" style="width:450px;; height:430px; border-color:black; border-width:10px;" /></a>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" style="background-color:grey;" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<!--<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>-->
+  <!-- Modal -->
+  <div id="container">
+  
+
+
+    <div style="text-align:center;" class="container info-form">
+
+
+
+
+
+      <div>
+
+
+        <table width="100%" class="table table-dark table-striped table-hover ">
+          <tbody>
+
+            <tr>
+              <td style="width:30%; text-align:left;">Product Images</td>
+              <td style="width:60%; text-align:left;"><p (click)="open(content)" style="color:seagreen;">View Product Images Here</p></td>
+            </tr>
+            <tr *ngIf="productDetail.Item.Subtitle != undefined">
+              <td style="width:30%; text-align:left;">Subtitle</td>
+              <td style="width:60%; text-align:left;">{{this.productDetail.Item.Subtitle}}</td>
+            </tr>
+            <tr *ngIf="productDetail.Item.CurrentPrice.Value != undefined">
+              <td style="width:30%; text-align:left;">Price</td>
+              <td style="width:60%; text-align:left;">{{productDetail.Item.CurrentPrice.Value}}</td>
+            </tr>
+            <tr *ngIf="productDetail.Item.Location != undefined">
+              <td style="width:30%; text-align:left;">Location</td>
+              <td style="width:60%; text-align:left;">{{productDetail.Item.Location}}</td>
+            </tr>
+            <tr *ngIf="productDetail.Item.ReturnPolicy.ReturnsAccepted != undefined">
+              <td style="width:30%; text-align:left;">Return Policy</td>
+              <td style="width:60%; text-align:left;">{{productDetail.Item.ReturnPolicy.ReturnsAccepted}}</td>
+            </tr>
+            <tr *ngFor="let rowdata of productDetail.Item.ItemSpecifics.NameValueList">
+              <td style="width:30%; text-align:left;">
+                {{rowdata.Name}}
+              </td>
+              <td style="width:60%; text-align:left;">
+                {{rowdata.Value[0]}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+
+
+
+</body>
+</html>

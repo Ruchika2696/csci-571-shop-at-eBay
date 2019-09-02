@@ -1,0 +1,80 @@
+<div class="container info-form">
+  <table width="100%" class="table table-dark table-striped table-hover ">
+    <tbody>
+      <tr>
+
+      </tr>
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Shipping Cost
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="ship[0].shippingServiceCost[0].__value__ && ship[0].shippingServiceCost[0].__value__ != '0.0'">
+          {{ship[0].shippingServiceCost[0].__value__}}
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="ship[0].shippingServiceCost[0].__value__=='0.0'">
+          Free Shipping
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Shipping Locations
+        </td>
+        <td style="width:60%; text-align:left;">
+          {{ship[0].shipToLocations}}
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Handling Time
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="ishandleDay">
+          {{ship[0].handlingTime[0]}} Day
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="!ishandleDay">
+          {{ship[0].handlingTime[0]}} Days
+        </td>
+
+      </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Expedited Shipping
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="isexpedite">
+          <i class="material-icons" style="font-size:30px;color:green; display: inline-block; vertical-align: middle;">done</i>
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="!isexpedite">
+          <i class="material-icons" style="font-size:30px;color:red; display: inline-block; vertical-align: middle;">clear</i>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          One day Shipping
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="isoneday">
+          <i class="material-icons" style="font-size:30px;color:green; display: inline-block; vertical-align: middle;">cdone</i>
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="!isoneday">
+          <i class="material-icons" style="font-size:30px;color:red; display: inline-block; vertical-align: middle;">clear</i>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Return Accepted
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="!isreturn">
+          <i class="material-icons" style="font-size:30px;color:green; display: inline-block; vertical-align: middle;">done</i>
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="isreturn">
+          <i class="material-icons" style="font-size:30px;color:red; display: inline-block; vertical-align: middle;">clear</i>
+        </td>
+
+      </tr>
+
+    </tbody>
+  </table>
+</div>

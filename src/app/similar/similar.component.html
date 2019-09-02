@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    input.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+
+<body>
+  <div  class="container info-form">
+    <select style="display:inline;" class="custom-select" name="sortcategoryselect" id="sortcategoryselect"  >
+      <option selected value="default">Default</option>
+      <option mat-sort-header="name" value="name">Product Name</option>
+      <option mat-sort-header="days" value="days">Days Left</option>
+      <option mat-sort-header="price" value="price">Price</option>
+      <option mat-sort-header="ship" value="ship">Shipping Cost</option>
+    </select>
+    <select style="display:inline;" class="custom-select" [(ngModel)]="model.selectedDirection"  id=" selectedDirection" #selectedDirection ="ngModel" name="selectedDirection" >
+      <option selected>Ascending</option>
+      <option>Descending</option>
+    </select>
+    <table width="100%" class="table table-dark table-striped table-hover " >
+      <tbody >
+       <tr *ngFor="let rowdata of firstHalf" >
+          <td style="width:10%; text-align:left;">
+            <img src="{{rowdata.imageURL}}" style="height:100px; width:80px;"/>
+          </td>
+          <td style="width:60%; text-align:left;">
+            <a style="color:#146077;">{{rowdata.title}}</a>
+            <p style="color:#4ABC34;">Price:{{rowdata.buyItNowPrice.__value__}}</p>
+            <p style="color:#C8C127;">Shipping Cost: ${{rowdata.shippingCost.__value__}}</p>
+            <p style="color:white;">Days Left: {{rowdata.timeLeft}}</p>
+
+          </td>
+        </tr>
+        <ng-container *ngIf="show">
+        <tr *ngFor="let rowdata of secondHalf" >
+          <td style="width:10%; text-align:left;">
+            <img src="{{rowdata.imageURL}}" style="height:100px; width:80px;"/>
+          </td>
+          <td style="width:60%; text-align:left;">
+            <a style="color:#146077;">{{rowdata.title}}</a>
+            <p style="color:#4ABC34;">Price:{{rowdata.buyItNowPrice.__value__}}</p>
+            <p style="color:#C8C127;">Shipping Cost: ${{rowdata.shippingCost.__value__}}</p>
+            <p style="color:white;">Days Left: {{rowdata.timeLeft}}</p>
+
+          </td>
+
+        </tr>
+        </ng-container>
+
+      </tbody>
+    </table>
+    <div style="color:white; text-align:center;" class="container info-form">
+      <button *ngIf="!show"class="btn btn-primary  navbar-btn align-content-between" style=" font-size: 20px; background-color:black; color:white;" (click)="showMore();">Show More</button>
+      <button *ngIf="show" class="btn btn-primary navbar-btn align-content-between" style=" font-size: 20px; background-color:black; color:white;" (click)="hide()">Show Less</button>
+    </div>
+  </div>
+  </body>
+</html>

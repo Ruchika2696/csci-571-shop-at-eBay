@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Basic Bootstrap Template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body style="margin-top:30px;">
+  <div style="text-align:center;" class="container info-form">
+
+    <table width="100%" class="table table-dark table-striped table-hover ">
+      <tbody>
+        <tr *ngIf="seller[0].sellerUserName[0]">
+          <td colspan="2">{{seller[0].sellerUserName[0]}}</td>
+        </tr>
+        <tr *ngIf="seller[0].feedbackScore[0] != undefined">
+          <td style="width:30%; text-align:left;">
+            Feedback Score
+          </td>
+          <td style="width:60%; text-align:left;">
+            {{seller[0].feedbackScore[0]}}
+          </td>
+        </tr >
+        <tr *ngIf="seller[0].positiveFeedbackPercent[0]">
+        <td style="width:30%; text-align:left;">Popularity</td>
+        
+      <td>
+        <div class="progress-content" style="position: relative;">
+          <div class="currentValue" style="position: absolute; color: white; line-height: 2.75; padding-left:6px;">{{seller[0].positiveFeedbackPercent[0]}}</div>
+          <round-progress [current]="seller[0].positiveFeedbackPercent[0]" [max]="100" [color]="'green'" [radius]="25" [stroke]="2">
+          </round-progress>
+        </div>
+      </td>
+      </tr>
+     
+
+        <tr *ngIf="seller[0].feedbackScore[0]">
+          <td style="width:30%; text-align:left;">
+            Feedback Rating Star
+          </td>
+          <td style="width:60%; text-align:left;" *ngIf="myStarColor =='red' ">
+            <p style="color:red">
+            <i class="material-icons" style="font-size:30px; display: inline-block; vertical-align: middle;"> {{myStar}} </i>
+            </p>
+
+          </td>
+          <td style="width:60%; text-align:left; " *ngIf="myStarColor=='blue'">
+            <p style="color:blue"><i class="material-icons " style="font-size:30px; display: inline-block; vertical-align: middle; ">{{myStar}}</i></p>
+
+          </td>
+          <td style="width:60%; text-align:left; " *ngIf="myStarColor=='yellow'">
+            <p style="color:yellow"><i class="material-icons " style="font-size:30px; display: inline-block; vertical-align: middle; ">{{myStar}}</i></p>
+
+          </td>
+          <td style="width:60%; text-align:left; " *ngIf="myStarColor=='purple'">
+            <p style="color:purple"><i class="material-icons " style="font-size:30px; display: inline-block; vertical-align: middle; ">{{myStar}}</i></p>
+
+          </td>
+          <td style="width:60%; text-align:left; " *ngIf="myStarColor=='turquoise'">
+            <p style="color:turquoise"><i class="material-icons " style="font-size:30px; display: inline-block; vertical-align: middle; ">{{myStar}}</i></p>
+
+          </td>
+          <td style="width:60%; text-align:left; " *ngIf="myStarColor=='green'">
+            <p style="color:green"><i class="material-icons " style="font-size:30px; display: inline-block; vertical-align: middle; ">{{myStar}}</i></p>
+
+          </td>
+        </tr>
+
+      <tr>
+        <td style="width:30%; text-align:left;">
+          Top Rated
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="seller[0].topRatedSeller">
+          <i class="material-icons" style="font-size:30px;color:green; display: inline-block; vertical-align: middle;">done</i>
+        </td>
+        <td style="width:60%; text-align:left;" *ngIf="!seller[0].topRatedSeller">
+          <i class="material-icons" style="font-size:30px;color:red; display: inline-block; vertical-align: middle;">clear</i>
+        </td>
+      </tr>
+
+      <tr *ngIf="store.StoreName">
+        <td style="width:30%; text-align:left;">
+          Store Name
+        </td>
+        <td style="width:60%; text-align:left;">
+          {{store.StoreName}}
+        </td>
+      </tr>
+
+      <tr *ngIf="store.StoreURL">
+        <td style="width:30%; text-align:left;">
+          Buy Product At
+        </td>
+        <td style="width:60%; text-align:left;">
+          <a href="{{store.StoreURL}}" style="color:green;" target="_blank">Store</a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    input.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
+  </style>
+  <meta charset="utf-8">
+  <title>Basic Bootstrap Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <div style="color:white; background-color:#1a1a1a;" class="container info-form">
+    <h2 align="center" style="margin-top: 10px;">Product Search</h2>
+    <br>
+
+    <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-8">
+        <form action="" #myForm="ngForm" name="myform" style="width:80%; margin:auto; align-self:center; width:100%" (ngSubmit)="onSubmit()" >
+
+
+          <div class="form-group row">
+            <label class="col-md-3 col-xs-3" for="keyword">Keyword<span style="color:red;">*</span></label>
+            <div class="col-sm-8" style="padding-left: 0px;">
+              <input class="col-md-8 col-xs-8 col-sm-8 form-control-sm" type="text" id="keyword" placeholder="Enter Product Name (eg. iPhone 8)" [(ngModel)]="model.keyword" #keyword="ngModel" name="keyword" required pattern="^\s*(\w.*)$" minlength="1">
+              <div *ngIf="keyword">
+                <div *ngIf="keyword.errors && (keyword.dirty || keyword.touched)">
+                  <div [hidden]="!keyword.errors.required">
+                    <span style="color:red;">Please enter a keyword.</span>
+                  </div>
+                  <div [hidden]="!keyword.errors.pattern">
+                    <span style="color:red;">Please enter a keyword.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-md-3 col-xs-3" for="category">Category</label>
+            <select class="col-md-4 col-xs-4 form-control-sm" id="category-select" [(ngModel)]="model.category" #category="ngModel" name="category">
+              <option value="-1" id="-1" selected>All Category</option>
+              <option value="550" id="550">Art</option>
+              <option value="2984" id="2984">Baby</option>
+              <option value="267" id="267">Books</option>
+              <option value="11450" id="11450">Clothing, Shoes & Accessories</option>
+              <option value="58058" id="58058">Computers/Tablets& Networking</option>
+              <option value="26395" id="26395">Health & Beauty</option>
+              <option value="11233" id="11233">Music</option>
+              <option value="1249" id="1249">Video Games & Consoles</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-xs-3" for="Condition">Condition</label>
+            <span> <label><input type="checkbox" name="newone" [(ngModel)]="model.newone" #newone="ngModel" id="newone"> New</label>&nbsp; &nbsp;<label><input type="checkbox" name="used" id="used" [(ngModel)]="model.used" #used="ngModel">Used</label>&nbsp; &nbsp; <label><input type="checkbox" name="unspecified" id="unspecified" [(ngModel)]="model.unspecified" #unspecified="ngModel">Unspecified</label> </span>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-md-3" for="Shipping">Shipping Options:</label>
+            <span> <label><input type="checkbox" name="local" [(ngModel)]="model.local" #local="ngModel"> Local Pickup</label>&nbsp; &nbsp;<label><input type="checkbox" name="free" [(ngModel)]="model.free" #free="ngModel">Free Shipping</label></span>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-sm-3" for="Distance">Distance (Miles):</label>
+            <input class="col-md-4 col-xs-4 form-control-sm form-conttrol" type="number" id="distance" placeholder="10" [(ngModel)]="model.distance" #distance="ngModel" name="distance">
+          </div>
+
+          <div>
+            <div class="form-group row" style="padding-left: 0px;">
+              <label class="col-md-3 col-sm-3" for="Distance">From<span style="color:red;">*</span></label>
+              <div class="col-sm-8" style="padding-left: 0px;">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="current" [checked]="true" #current="ngModel" [(ngModel)]="model.current">
+                  <label class="form-check-label" for="gridRadios1">
+                    Current Location
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="other" #other="ngModel" [(ngModel)]="model.other">
+                  <label class="form-check-label" for="gridRadios2">
+                    Other. Please specify zip code:
+                  </label>
+                </div>
+
+                <div class="form-check disabled col-sm-8" style="padding-left: 0px;">
+                  <!--<mat-form-field *ngIf="zips">-->
+                    <input [disabled]="!model.other" type="text" (input)="get_zipData($event.target.value)" [(ngModel)]="model.zip" #zip="ngModel" name="zip" id="zip" class="form-control-sm col-sm-12 col-md-12 form-control mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored" style="padding-left: 0px;"  pattern="^\d{5}(-\d{4})?$" required matInput [matAutocomplete]="auto" >
+                    <mat-autocomplete #auto="matAutocomplete" >
+                      <mat-option *ngFor="let option of zips.postalCodes" [value]="option.postalCode" (onSelectionChange)="setZip(option)">
+                        {{ option.postalCode }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  <!--</mat-form-field>-->
+
+                  <div *ngIf="zip">
+                    <div *ngIf="zip.errors && (zip.dirty || zip.touched)">
+                      <div [hidden]="!zip.errors.required">
+                        <span style="color:red;">Please enter zip.</span>
+                      </div>
+                      <div [hidden]="!zip.errors.pattern">
+                        <br /><span style="color:red;">Invalid Zip.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-group row col-md-6 col-sm-6" style="">
+            <button [disabled]="keyword.errors || (model.other && zip.errors)" (click)="showBar()"class="btn btn-primary  navbar-btn align-content-between" type="submit" name="submit" style="background-color: white; color:black; font-size: 20px; display: inline-block; margin-right: 30px;"><i class="material-icons" style="font-size:30px;color:black; vertical-align: middle; padding-left:0px;" disabled=true>search</i>Search</button>
+
+            <button class="btn btn-primary navbar-btn align-content-between" type="reset" (click)="newForm(); clearAll()" style="background-color: white; color:black;  font-size: 20px;"><i class="material-icons" style="font-size:30px;color:black; display: inline-block; vertical-align: middle;">clear_all</i>Clear</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+
+  </div>
+
+  <div style="color:white; text-align:center;" class="container info-form">
+    <button class="btn btn-primary  navbar-btn align-content-between" [style.background]="!wishActive ? 'black': 'white'" [style.color]="!wishActive ? 'white': 'black'" style=" font-size: 20px; " (click)="get_zipData($event.target.value); deactivateWishList()">Result</button>
+    <button class="btn btn-primary navbar-btn align-content-between" [style.background]="wishActive ? 'black': 'white'" [style.color]="wishActive ? 'white': 'black'" style=" font-size: 20px;" (click)="activateWishList()">Wishilist</button>
+  </div>
+  <br />
+  <div class="progress container info-form" [hidden]="!bar">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  <div *ngIf="notFound" style="background-color:lightyellow; color:orange; border-color:orange; border:1px;" class="container info-form">
+    <p>No Records</p>
+  </div>
+
+  <div *ngIf="resultTable && !wishActive && !notFound">
+    <app-result-table *ngIf="submitted" [resultTable]="resultTable"></app-result-table>
+  </div>
+
+  <div *ngIf="wishActive">
+    <app-wish-list></app-wish-list>
+  </div>
+
+</body>
+</html>
