@@ -12,7 +12,7 @@ Engine/Microsoft Azure.
 Facebook API.
 ```
 
-### 2) Assignment Description is [HERE](https://github.com/Ruchika2696/csci-571-shop-at-ebay/blob/master/HW8_Description.pdf)
+
 
 
 
